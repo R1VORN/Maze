@@ -14,17 +14,6 @@ namespace Maze
         // дефолтный цвет символа в консоли
         public static ConsoleColor defaultColor = Console.ForegroundColor;
 
-
-        // типы ячеек в интах
-        public enum CellType
-        {
-            Empty = 0,
-            Wall = 1,
-            Item = 2,
-            Player = 3
-        }
-
-
         // символы для типов ячеек
         public static class MazeSymbols
         {
