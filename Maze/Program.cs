@@ -1,6 +1,7 @@
 ﻿using Maze;
 using Maze.Control;
 using Maze.MazeFunctions;
+using Maze.Menu;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,39 +86,50 @@ namespace Maze
             }
 
 
-            int[,] maze1 = GenerateMazes.GenerateMaze(density);
-            GenerateMazes.PlaceItemsAndPlayer(maze1);
-            int[,] verifyMaze = PathFinder.IsMazePassable(maze1);
+            int[,] maze = GenerateMazes.GenerateMaze(density);
+            GenerateMazes.PlaceItemsAndPlayer(maze);
+            int[,] verifyMaze = PathFinder.IsMazePassable(maze);
 
             bool isRunning = true;
             ConsoleKeyInfo pressedKey = Console.ReadKey();
-            Position playerPosition = PathFinder.FindPlayer(maze1);
+            Position playerPosition = PathFinder.FindPlayer(maze);
 
-            Console.SetCursorPosition(0, 2);
-            DrawMazes.DrawMaze(maze1);
+
             Console.CursorVisible = false;
+            List<Position> minimalPath = PathFinder.FindMinimalPath(verifyMaze);
+            int steps = PathFinder.CountSteps(minimalPath);
+            List<Position> itemPlaces = PathFinder.FindAllItems(verifyMaze);
+            int itemCount = itemPlaces.Count;
+            int itemGeted = 0;
+            int playerSteps = 0;
+
+            GameInterface.PrintGame(maze, itemGeted, itemCount, playerSteps);
+
             while (isRunning)
             {
-                Console.SetCursorPosition(0, 2);
-
-                DrawMazes.DrawMaze(maze1);
-                Console.WriteLine();
+                GameInterface.PrintGame(maze, itemGeted, itemCount, playerSteps);
 
                 if (Console.KeyAvailable)
                 {
                     pressedKey = Console.ReadKey(true);
 
-                    PlayerMovements.PlayerMovement(pressedKey, ref playerPosition, ref maze1, ref isRunning);
+                    PlayerMovements.PlayerMovement(pressedKey, ref playerPosition, ref maze,
+                        ref isRunning, ref itemPlaces, ref itemGeted, ref playerSteps);
                 }
 
                 Thread.Sleep(50);
+                
+                if (itemCount == itemGeted)
+                {
+                    isRunning = false;
+                }
+
             }
+
+            GameInterface.PrintGame(maze, itemGeted, itemCount, playerSteps);
+
             /*DrawMaze(verifyMaze);
             Console.WriteLine();*/
-
-
-
-            int itemCount = (PathFinder.FindAllItems(verifyMaze)).Count;
 
             if (itemCount == 0)
             {
@@ -125,9 +137,6 @@ namespace Maze
                 return;
             }
 
-            // Ищем минимальный путь
-            List<Position> minimalPath = PathFinder.FindMinimalPath(maze1);
-            int steps = PathFinder.CountSteps(minimalPath);
 
             Console.WriteLine($"Лабиринт проходим. Есть достижимые предметы ({itemCount})!");
             Console.WriteLine($"Минимальное количество шагов для сбора всех предметов: {steps}\n");

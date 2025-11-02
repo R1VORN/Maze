@@ -9,10 +9,12 @@ namespace Maze.Control
 {
     static class PlayerMovements
     {
-        public static void PlayerMovement(ConsoleKeyInfo keyPressed, ref Position player, ref int[,] maze,ref bool isRunning)
+        public static void PlayerMovement(ConsoleKeyInfo keyPressed, ref Position player, 
+            ref int[,] maze,ref bool isRunning, ref List<Position> itemPlaces, ref int itemGeted, ref int playerSteps)
         {
             int x = player.X;
             int y = player.Y;
+            Position itemToRemove = null;
 
             switch (keyPressed.Key)
             {
@@ -22,7 +24,24 @@ namespace Maze.Control
                         maze[x, y] = 0;
                         y--;
                         maze[x, y] = 3;
+                        playerSteps++;
                     }
+
+                    foreach (Position item in itemPlaces)
+                    {
+                        if (x == item.X && y == item.Y)
+                        {
+                            itemGeted += 1;
+                            itemToRemove = item;
+                            break;
+                        }
+                    }
+
+                    if (itemToRemove != null)
+                    {
+                        itemPlaces.Remove(itemToRemove);
+                    }
+
                     break;
 
                 case ConsoleKey.DownArrow:
@@ -31,6 +50,22 @@ namespace Maze.Control
                         maze[x, y] = 0;
                         y++;
                         maze[x, y] = 3;
+                        playerSteps++;
+                    }
+
+                    foreach (Position item in itemPlaces)
+                    {
+                        if (x == item.X && y == item.Y)
+                        {
+                            itemGeted += 1;
+                            itemToRemove = item;
+                            break;
+                        }
+                    }
+
+                    if (itemToRemove != null)
+                    {
+                        itemPlaces.Remove(itemToRemove);
                     }
                     break;
 
@@ -40,6 +75,22 @@ namespace Maze.Control
                         maze[x, y] = 0;
                         x--;
                         maze[x, y] = 3;
+                        playerSteps++;
+                    }
+
+                    foreach (Position item in itemPlaces)
+                    {
+                        if (x == item.X && y == item.Y)
+                        {
+                            itemGeted += 1;
+                            itemToRemove = item;
+                            break;
+                        }
+                    }
+
+                    if (itemToRemove != null)
+                    {
+                        itemPlaces.Remove(itemToRemove);
                     }
                     break;
 
@@ -49,6 +100,22 @@ namespace Maze.Control
                         maze[x, y] = 0;
                         x++;
                         maze[x, y] = 3;
+                        playerSteps++;
+                    }
+
+                    foreach (Position item in itemPlaces)
+                    {
+                        if (x == item.X && y == item.Y)
+                        {
+                            itemGeted += 1;
+                            itemToRemove = item;
+                            break;
+                        }
+                    }
+
+                    if (itemToRemove != null)
+                    {
+                        itemPlaces.Remove(itemToRemove);
                     }
                     break;
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Maze
 {
-    internal class Position
+    class Position
     {
         private int _x;
         private int _y;
