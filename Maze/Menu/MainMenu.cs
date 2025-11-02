@@ -6,25 +6,27 @@ using System.Threading.Tasks;
 
 namespace Maze.Menu
 {
-    internal static class MainMenu
+    static class MainMenu
     {
-        static string[] nameLines = { "Новая игра", "Прохождение роботом", "Настройки", "Выход" };
+        static string[] nameLines = { "Новая игра", "Прохождение роботом", "Выход" };
         public static void PrintMenu(int choice)
         {
-            for (int i = 0; i < nameLines.Length - 1; i++)
+            for (int i = 0; i <= nameLines.Length - 1; i++)
             {
                 Console.WriteLine(nameLines[i]);
             }
 
             Console.SetCursorPosition(nameLines[choice].Length + 2, choice);
-            Console.Write("⯇");
+            Console.Write("<|");
+            Console.SetCursorPosition(0, nameLines.Length + 2);
+            Console.Write("Для выбора нажмите Enter");
         }
 
-        public static void ChoiceAction(ConsoleKeyInfo keyPressed, int choice)
+        public static void ChoiceAction(ConsoleKeyInfo keyPressed,ref int choice)
         {
             switch (keyPressed.Key)
             {
-                case ConsoleKey.UpArrow:
+                case ConsoleKey.DownArrow:
                     if (choice < nameLines.Length - 1)
                     {
                         choice++;
@@ -35,7 +37,7 @@ namespace Maze.Menu
                     }
                     break;
 
-                case ConsoleKey.DownArrow:
+                case ConsoleKey.UpArrow:
                     if (choice > 0)
                     {
                         choice--;

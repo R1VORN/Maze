@@ -13,9 +13,9 @@ namespace Maze.Menu
         public static void PrintOption(int choice)
         {
             Console.WriteLine($"Выберите плотность застройки: {densitys[choice]}");
-            Console.WriteLine("Назад - escape");
+            Console.WriteLine($"<- -> чтобы изменить, Enter — подтвердить, Escape — назад");
         }
-        public static void ChoiceDe(ConsoleKeyInfo keyPressed, int choice)
+        public static void ChoiceDe(ConsoleKeyInfo keyPressed,ref int choice)
         {
             switch (keyPressed.Key)
             {
@@ -41,6 +41,10 @@ namespace Maze.Menu
                     }
                     break;
             }
+        }
+        public static string GetDensityName(int choice)
+        {
+            return densitys[choice];
         }
     }
 }
