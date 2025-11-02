@@ -43,7 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DrawMaze.cs" />
+    <Compile Include="DrawMazes.cs" />
+    <Compile Include="GenerateMazes.cs" />
     <Compile Include="PathFinder.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Program.cs" />
