@@ -24,6 +24,7 @@ namespace Maze
 
             string choice = "";
 
+
             while (flagMenu)
             {
                 Console.WriteLine("Выберите плотность застройки:\n" +
@@ -143,24 +144,7 @@ namespace Maze
 
             Console.WriteLine("Путь игрока (X, Y):\n");
 
-            byte cnt = 0;
-
-            for (int i = 0; i < steps; i++)
-            {
-                cnt++;
-
-                if (cnt == 10)
-                {
-                    Console.WriteLine();
-                    cnt = 0;
-                }
-                Console.Write($"({minimalPath[i].X},{minimalPath[i].Y})");
-                if (i != (steps - 1))
-                {
-                    Console.Write(" —> ");
-                }
-            }
-            Console.WriteLine();
+            PathFinder.PrintFindedPath(minimalPath, steps);
         }
     }
 }

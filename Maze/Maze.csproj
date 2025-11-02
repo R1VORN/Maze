@@ -45,8 +45,10 @@
   <ItemGroup>
     <Compile Include="MazeFunctions\DrawMazes.cs" />
     <Compile Include="MazeFunctions\GenerateMazes.cs" />
+    <Compile Include="Menu\BeforeGameMenu.cs" />
     <Compile Include="Menu\GameInterface.cs" />
     <Compile Include="Menu\MainMenu.cs" />
+    <Compile Include="Menu\SettingsMenu.cs" />
     <Compile Include="PathFinder.cs" />
     <Compile Include="PlayerControl\PlayerMovement.cs" />
     <Compile Include="Position.cs" />

@@ -184,5 +184,26 @@ namespace Maze
                         items.Add(new Position(i, j));
             return items;
         }
+
+        public static void PrintFindedPath(List<Position> minimalPath, int steps) 
+        {
+            int cnt = 0;
+
+            for (int i = 0; i < steps; i++)
+            {
+                cnt++;
+
+                if (cnt == 10)
+                {
+                    Console.WriteLine();
+                    cnt = 0;
+                }
+                Console.Write($"({minimalPath[i].X},{minimalPath[i].Y})");
+                if (i != (steps - 1))
+                {
+                    Console.Write(" —> ");
+                }
+            }
+        }
     }
 }
