@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Maze
+namespace Maze.MazeFunctions
 {
-    internal static class GenerateMazes
+    static class GenerateMazes
     {
         public static Random random = new Random();
         public static int[,] GenerateMaze(int density)
@@ -19,22 +19,26 @@ namespace Maze
             else
             {
                 int[,] maze = new int[13, 13];
-                int height = maze.GetLength(0);
-                int width = maze.GetLength(1);
+                int width = maze.GetLength(0);
+                int height = maze.GetLength(1);
 
-                // 1. Сначала делаем все клетки проходами
-                for (int y = 0; y < height; y++)
-                    for (int x = 0; x < width; x++)
-                        maze[y, x] = 0;
-
-                // 2. Границы - стены
-                for (int y = 0; y < height; y++)
+                // 1. Сделать все клетки проходами
+                for (int x = 0; x < width; x++)
                 {
-                    for (int x = 0; x < width; x++)
+                    for (int y = 0; y < height; y++)
+                    {
+                        maze[x, y] = 0;
+                    }
+                }
+
+                // 2. Границы — стены
+                for (int x = 0; x < width; x++)
+                {
+                    for (int y = 0; y < height; y++)
                     {
                         if (x == 0 || y == 0 || x == width - 1 || y == height - 1)
                         {
-                            maze[y, x] = 1;
+                            maze[x, y] = 1;
                         }
                     }
                 }
@@ -62,17 +66,16 @@ namespace Maze
         public static void CreatePath(int[,] maze, int startX, int startY, int endX, int endY)
         {
             int x = startX, y = startY;
-
             while (x != endX || y != endY)
             {
-                maze[y, x] = 0; // Делаем клетку проходом
+                maze[x, y] = 0;
 
                 if (x < endX) x++;
                 else if (x > endX) x--;
                 else if (y < endY) y++;
                 else if (y > endY) y--;
             }
-            maze[endY, endX] = 0;
+            maze[endX, endY] = 0;
         }
 
         public static void PlaceItemsAndPlayer(int[,] maze)
@@ -87,9 +90,9 @@ namespace Maze
                 playerX = rand.Next(1, 11);
                 playerY = rand.Next(1, 11);
 
-                if (maze[playerY, playerX] != 1)
+                if (maze[playerX, playerY] != 1)
                 {
-                    maze[playerY, playerX] = 3;
+                    maze[playerX, playerY] = 3;
                     break;
                 }
             }
@@ -104,7 +107,7 @@ namespace Maze
                 int y = rand.Next(1, maze.GetLength(1) - 1);
 
                 // Проверяем, пустая ли клетка
-                if (maze[x, y] == 0 & !(x == playerX & y == playerY))
+                if (maze[x, y] == 0 && !(x == playerX && y == playerY))
                 {
                     // Ставим случайный предмет
                     //maze[x, y] = items[rand.Next(items.Length)][0];

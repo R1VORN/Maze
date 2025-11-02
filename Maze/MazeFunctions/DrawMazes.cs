@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Maze
+namespace Maze.MazeFunctions
 {
-    internal static class DrawMazes
+    static class DrawMazes
     {
         public static ConsoleColor defaultColor = Console.ForegroundColor;
 
@@ -32,7 +32,7 @@ namespace Maze
             {
                 for (int j = 0; j < maze.GetLength(1); j++)
                 {
-                    Console.Write(CellTypeConverter(maze[i, j]));
+                    Console.Write(CellTypeConverter(maze[j, i]));
                     Console.ForegroundColor = defaultColor;
                 }
                 Console.WriteLine();

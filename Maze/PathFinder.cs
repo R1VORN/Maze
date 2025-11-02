@@ -166,7 +166,7 @@ namespace Maze
             return null;
         }
 
-        private static Position FindPlayer(int[,] maze)
+        public static Position FindPlayer(int[,] maze)
         {
             for (int i = 0; i < maze.GetLength(0); i++)
                 for (int j = 0; j < maze.GetLength(1); j++)

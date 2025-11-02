@@ -43,9 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DrawMazes.cs" />
-    <Compile Include="GenerateMazes.cs" />
+    <Compile Include="MazeFunctions\DrawMazes.cs" />
+    <Compile Include="MazeFunctions\GenerateMazes.cs" />
+    <Compile Include="Menu\MainMenu.cs" />
     <Compile Include="PathFinder.cs" />
+    <Compile Include="PlayerControl\PlayerMovement.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

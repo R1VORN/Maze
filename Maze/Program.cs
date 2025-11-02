@@ -1,8 +1,11 @@
 ﻿using Maze;
+using Maze.Control;
+using Maze.MazeFunctions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 
@@ -81,15 +84,34 @@ namespace Maze
                     break;
             }
 
-            Console.WriteLine();
-            Console.WriteLine();
 
             int[,] maze1 = GenerateMazes.GenerateMaze(density);
             GenerateMazes.PlaceItemsAndPlayer(maze1);
-            DrawMazes.DrawMaze(maze1);
-            Console.WriteLine();
-
             int[,] verifyMaze = PathFinder.IsMazePassable(maze1);
+
+            bool isRunning = true;
+            ConsoleKeyInfo pressedKey = Console.ReadKey();
+            Position playerPosition = PathFinder.FindPlayer(maze1);
+
+            Console.SetCursorPosition(0, 2);
+            DrawMazes.DrawMaze(maze1);
+            Console.CursorVisible = false;
+            while (isRunning)
+            {
+                Console.SetCursorPosition(0, 2);
+
+                DrawMazes.DrawMaze(maze1);
+                Console.WriteLine();
+
+                if (Console.KeyAvailable)
+                {
+                    pressedKey = Console.ReadKey(true);
+
+                    PlayerMovements.PlayerMovement(pressedKey, ref playerPosition, ref maze1, ref isRunning);
+                }
+
+                Thread.Sleep(50);
+            }
             /*DrawMaze(verifyMaze);
             Console.WriteLine();*/
 
@@ -123,7 +145,7 @@ namespace Maze
                     Console.WriteLine();
                     cnt = 0;
                 }
-                Console.Write($"({minimalPath[i].Y},{minimalPath[i].X})");
+                Console.Write($"({minimalPath[i].X},{minimalPath[i].Y})");
                 if (i != (steps - 1))
                 {
                     Console.Write(" —> ");
