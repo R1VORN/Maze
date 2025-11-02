@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Maze
+namespace Maze.RobotControl
 {
     internal class PathFinder
     {
@@ -166,7 +166,7 @@ namespace Maze
             return null;
         }
 
-        private static Position FindPlayer(int[,] maze)
+        public static Position FindPlayer(int[,] maze)
         {
             for (int i = 0; i < maze.GetLength(0); i++)
                 for (int j = 0; j < maze.GetLength(1); j++)
@@ -183,6 +183,27 @@ namespace Maze
                     if (maze[i, j] == 2)
                         items.Add(new Position(i, j));
             return items;
+        }
+
+        public static void PrintFindedPath(List<Position> minimalPath, int steps) 
+        {
+            int cnt = 0;
+
+            for (int i = 0; i < steps; i++)
+            {
+                cnt++;
+
+                if (cnt == 10)
+                {
+                    Console.WriteLine();
+                    cnt = 0;
+                }
+                Console.Write($"({minimalPath[i].X},{minimalPath[i].Y})");
+                if (i != (steps - 1))
+                {
+                    Console.Write(" —> ");
+                }
+            }
         }
     }
 }
