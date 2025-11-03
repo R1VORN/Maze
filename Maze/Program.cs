@@ -30,17 +30,15 @@ namespace Maze
                 {
                     switch (mainChoice)
                     {
-                        case 0: // Новая игра
+                        case 0:
                             RunBeforeGameMenu();
                             break;
 
-                        case 1: // Прохождение роботом (отдельный пункт)
-                            Console.Clear();
-                            Console.WriteLine("Функция 'Прохождение роботом' запустится после игры.");
-                            Console.ReadKey(true);
+                        case 1:
+                            RunRobotFullTraversal();
                             break;
 
-                        case 2: // Выход
+                        case 2:
                             programRunning = false;
                             break;
                     }
@@ -66,11 +64,10 @@ namespace Maze
 
                 if (key.Key == ConsoleKey.Escape)
                 {
-                    inBeforeMenu = false; // возврат в главное меню
+                    inBeforeMenu = false;
                 }
                 else if (key.Key == ConsoleKey.Enter)
                 {
-                    // Определяем плотность по выбору
                     switch (densityChoice)
                     {
                         case 0:
@@ -196,5 +193,41 @@ namespace Maze
             PathFinder.PrintFindedPath(path, path.Count);
             Console.ReadKey(true);
         }
+
+        static void RunRobotFullTraversal()
+        {
+            Console.Clear();
+            Console.WriteLine("Робот начинает обход лабиринта...");
+            Thread.Sleep(500);
+
+            int density = random.Next(10, 25);
+            int[,] maze = GenerateMazes.GenerateMaze(density);
+            GenerateMazes.PlaceItemsAndPlayer(maze);
+
+            Position startPosition = PathFinder.FindPlayer(maze);
+
+            int[,] verifyMaze = PathFinder.IsMazePassable(maze);
+            List<Position> items = PathFinder.FindAllItems(verifyMaze);
+
+            List<Position> fullTraversalPath = PathFinder.FindFullTraversalPath(verifyMaze);
+            RobotMethods.AnimationPathMazeWithoutCollectingItems(maze, fullTraversalPath, items);
+
+            Console.WriteLine("\nРобот завершил обход всего лабиринта.");
+            Thread.Sleep(1000);
+
+            RobotMethods.AnimationReturnToStart(maze, PathFinder.FindPlayer(maze), startPosition, items);
+
+            List<Position> minimalPath = PathFinder.FindMinimalPath(verifyMaze);
+            RobotMethods.AnimationPathMaze(maze, minimalPath);
+
+            Console.WriteLine("\nРобот завершил оптимальный маршрут.");
+            Console.WriteLine($"Шаги робота: {minimalPath.Count}");
+            Console.WriteLine("\nПуть робота (X, Y):");
+            PathFinder.PrintFindedPath(minimalPath, minimalPath.Count);
+
+            Console.WriteLine("\nНажмите любую клавишу для возврата в главное меню...");
+            Console.ReadKey(true);
+        }
+
     }
 }

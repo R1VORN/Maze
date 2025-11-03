@@ -205,5 +205,44 @@ namespace Maze.RobotControl
                 }
             }
         }
+        public static List<Position> FindFullTraversalPath(int[,] maze)
+        {
+            // Можно использовать BFS или DFS для обхода всех клеток
+            // Простая реализация — пройти все свободные клетки без повторений
+            int rows = maze.GetLength(0);
+            int cols = maze.GetLength(1);
+            bool[,] visited = new bool[rows, cols];
+            List<Position> path = new List<Position>();
+
+            Position start = FindPlayer(maze);
+            DFSFullTraversal(maze, start, visited, path);
+            return path;
+        }
+
+        private static void DFSFullTraversal(int[,] maze, Position pos, bool[,] visited, List<Position> path)
+        {
+            visited[pos.X, pos.Y] = true;
+            path.Add(pos);
+
+            int[] dx = { -1, 1, 0, 0 };
+            int[] dy = { 0, 0, -1, 1 };
+
+            for (int i = 0; i < 4; i++)
+            {
+                int nx = pos.X + dx[i];
+                int ny = pos.Y + dy[i];
+
+                if (nx >= 0 && ny >= 0 && nx < maze.GetLength(0) && ny < maze.GetLength(1))
+                {
+                    if (!visited[nx, ny] && maze[nx, ny] != 1)
+                        DFSFullTraversal(maze, new Position(nx, ny), visited, path);
+                }
+            }
+        }
+
+        public static List<Position> FindPath(Position start, Position goal, int[,] maze)
+        {
+            return BFS(maze, start, goal);
+        }
     }
 }
