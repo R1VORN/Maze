@@ -9,13 +9,13 @@ namespace Maze.Menu
 {
     static class BeforeGameMenu
     {
-        static string[] densitys = {"низкая", "средняя", "высокая" };
+        static string[] densitys = { "низкая", "средняя", "высокая" };
         public static void PrintOption(int choice)
         {
             Console.WriteLine($"Выберите плотность застройки: {densitys[choice]}");
             Console.WriteLine($"<- -> чтобы изменить, Enter — подтвердить, Escape — назад");
         }
-        public static void ChoiceDe(ConsoleKeyInfo keyPressed,ref int choice)
+        public static void ChoiceDe(ConsoleKeyInfo keyPressed, ref int choice)
         {
             switch (keyPressed.Key)
             {

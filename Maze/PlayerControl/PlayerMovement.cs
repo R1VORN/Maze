@@ -9,8 +9,8 @@ namespace Maze.Control
 {
     static class PlayerMovements
     {
-        public static void PlayerMovement(ConsoleKeyInfo keyPressed, ref Position player, 
-            ref int[,] maze,ref bool isRunning, ref List<Position> itemPlaces, ref int itemGeted, ref int playerSteps)
+        public static void PlayerMovement(ConsoleKeyInfo keyPressed, ref Position player,
+            ref int[,] maze, ref bool isRunning, ref List<Position> itemPlaces, ref int itemGeted, ref int playerSteps)
         {
             int x = player.X;
             int y = player.Y;

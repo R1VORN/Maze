@@ -22,7 +22,7 @@ namespace Maze.Menu
             Console.Write("Для выбора нажмите Enter");
         }
 
-        public static void ChoiceAction(ConsoleKeyInfo keyPressed,ref int choice)
+        public static void ChoiceAction(ConsoleKeyInfo keyPressed, ref int choice)
         {
             switch (keyPressed.Key)
             {

@@ -48,6 +48,7 @@
     <Compile Include="Menu\BeforeGameMenu.cs" />
     <Compile Include="Menu\GameInterface.cs" />
     <Compile Include="Menu\MainMenu.cs" />
+    <Compile Include="Menu\MenuModes.cs" />
     <Compile Include="RobotControl\PathFinder.cs" />
     <Compile Include="PlayerControl\PlayerMovement.cs" />
     <Compile Include="Position.cs" />

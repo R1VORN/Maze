@@ -43,18 +43,18 @@ namespace Maze.MazeFunctions
             switch (cellType)
             {
                 case 0:
-                    return DrawMazes.MazeSymbols.Empty;
+                    return MazeSymbols.Empty;
                 case 1:
                     Console.ForegroundColor = ConsoleColor.Blue;
-                    return DrawMazes.MazeSymbols.Wall;
+                    return MazeSymbols.Wall;
                 case 2:
                     Console.ForegroundColor = ConsoleColor.Red;
-                    return DrawMazes.MazeSymbols.Item;
+                    return MazeSymbols.Item;
                 case 3:
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    return DrawMazes.MazeSymbols.Player;
+                    return MazeSymbols.Player;
                 default:
-                    return DrawMazes.MazeSymbols.Empty;
+                    return MazeSymbols.Empty;
             }
         }
     }

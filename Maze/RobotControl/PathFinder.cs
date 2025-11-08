@@ -8,7 +8,6 @@ namespace Maze.RobotControl
 {
     internal class PathFinder
     {
-        // Главная функция: ищет минимальный путь через все предметы (перебор всех последовательностей)
         public static List<Position> FindMinimalPath(int[,] maze)
         {
             Position player = FindPlayer(maze);
@@ -31,11 +30,9 @@ namespace Maze.RobotControl
                     List<Position> segment = BFS(maze, cur, item);
                     if (segment == null)
                     {
-                        valid = false; // недостижимый предмет
+                        valid = false;
                         break;
                     }
-
-                    // убираем повторяющуюся стартовую позицию сегмента
                     if (path.Count > 0)
                         segment.RemoveAt(0);
 
@@ -56,8 +53,6 @@ namespace Maze.RobotControl
 
             return bestPath;
         }
-
-        // Генерация всех перестановок предметов
         private static IEnumerable<List<Position>> GetPermutations(List<Position> items)
         {
             if (items.Count == 1)
@@ -80,20 +75,15 @@ namespace Maze.RobotControl
                 }
             }
         }
-
-        // Подсчёт шагов
         public static int CountSteps(List<Position> path)
         {
             if (path == null || path.Count == 0)
                 return 0;
             return path.Count - 1;
         }
-
-        // Проверка, достижимы ли все предметы
         public static int[,] IsMazePassable(int[,] maze)
         {
             Position player = FindPlayer(maze);
-            //if (player == null) return false;
 
             List<Position> items = FindAllItems(maze);
             foreach (var item in items)
@@ -102,9 +92,7 @@ namespace Maze.RobotControl
                 {
                     maze[item.X, item.Y] = 0;
                 }
-                //return false;
             }
-            //return true;
             return maze;
         }
 
@@ -112,8 +100,6 @@ namespace Maze.RobotControl
         {
             return BFS(maze, start, item) != null;
         }
-
-        // BFS — поиск кратчайшего пути между двумя точками
         private static List<Position> BFS(int[,] maze, Position start, Position goal)
         {
             int rows = maze.GetLength(0);
@@ -185,7 +171,7 @@ namespace Maze.RobotControl
             return items;
         }
 
-        public static void PrintFindedPath(List<Position> minimalPath, int steps) 
+        public static void PrintFindedPath(List<Position> minimalPath, int steps)
         {
             int cnt = 0;
 
@@ -207,19 +193,17 @@ namespace Maze.RobotControl
         }
         public static List<Position> FindFullTraversalPath(int[,] maze)
         {
-            // Можно использовать BFS или DFS для обхода всех клеток
-            // Простая реализация — пройти все свободные клетки без повторений
             int rows = maze.GetLength(0);
             int cols = maze.GetLength(1);
             bool[,] visited = new bool[rows, cols];
             List<Position> path = new List<Position>();
 
             Position start = FindPlayer(maze);
-            DFSFullTraversal(maze, start, visited, path);
+            BFSFullTraversal(maze, start, visited, path);
             return path;
         }
 
-        private static void DFSFullTraversal(int[,] maze, Position pos, bool[,] visited, List<Position> path)
+        private static void BFSFullTraversal(int[,] maze, Position pos, bool[,] visited, List<Position> path)
         {
             visited[pos.X, pos.Y] = true;
             path.Add(pos);
@@ -235,7 +219,7 @@ namespace Maze.RobotControl
                 if (nx >= 0 && ny >= 0 && nx < maze.GetLength(0) && ny < maze.GetLength(1))
                 {
                     if (!visited[nx, ny] && maze[nx, ny] != 1)
-                        DFSFullTraversal(maze, new Position(nx, ny), visited, path);
+                        BFSFullTraversal(maze, new Position(nx, ny), visited, path);
                 }
             }
         }
